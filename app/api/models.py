@@ -33,3 +33,33 @@ class TranscriptionResponse(BaseModel):
     message: str
     data: dict = None
     details: dict = None
+
+
+class PredictionCreate(BaseModel):
+    """
+    단어 추론 API 요청 시 전송해야 하는 본문 데이터 구조
+
+    Attributes:
+        description (str): 단어를 추론하는데 사용될 단어에 관한 묘사 텍스트
+    """
+
+    description: str
+
+
+class PredictionResponse(BaseModel):
+    """
+    단어 추론 결과를 담은 응답 데이터 구조
+
+    Attributes:
+        status (str): 응답 상태 ("success" 혹은 "error")
+        code (int): HTTP 응답 상태코드
+        message (str): HTTP 관련 메시지
+        data (dict): 단어 추론 결과 데이터 (응답 상태가 성공인 경우에만 존재)
+        details (dict): 에러 응답 세부 정보 (응답 상태가 실패인 경우에만 존재)
+    """
+
+    status: str
+    code: int
+    message: str
+    data: dict = None
+    details: dict = None
