@@ -5,11 +5,12 @@
 import logging
 
 from fastapi import FastAPI
-
 from fastapi.exceptions import RequestValidationError
+
 from app.core.exceptions import CustomException
 from app.core.exception_handlers import custom_exception_handler
 
+from app import global_config
 from app.routers import transcriptions, predictions
 
 logging.basicConfig(level=logging.INFO)
