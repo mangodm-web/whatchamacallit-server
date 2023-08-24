@@ -7,7 +7,7 @@ from typing import List, Dict, Union
 import numpy as np
 from sentence_transformers import util
 
-from app.model_instance import model_instance, corpus_embeddings, corpus_df
+from app.global_config import model_instance, corpus_embeddings, corpus_df
 
 
 def get_predictions(query: str, top_k: int = 3) -> List[Dict[str, Union[str, int]]]:
