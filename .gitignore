@@ -163,3 +163,4 @@ app/settings/key.json
 .idea
 
 app/settings/model/
+.vscode
