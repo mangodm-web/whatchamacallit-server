@@ -8,6 +8,9 @@ from fastapi import status
 
 load_dotenv()
 
+# Origins 관련
+ALLOWED_ORIGINS = os.getenv("ALLOWED_ORIGINS").split(",")
+
 # Google Cloud Platform 관련
 GCP_PROJECT_ID = os.getenv("GCP_PROJECT_ID")
 
