@@ -57,28 +57,35 @@ async def create_transcription(audio: TranscriptionCreate) -> JSONResponse:
 
         response = client.recognize(request=request)
 
-        if response.results:
-            result = response.results[0].alternatives[0]
-
-            [transcript, confidence] = [result.transcript, result.confidence]
-
-            if confidence < STT_API_CONFIDENCE_THRESHOLD:
-                raise CustomException(
-                    status_code=HTTP_STATUS_CODE["BAD_REQUEST"],
-                    message=HTTP_STATUS_MESSAGE["BAD_REQUEST"],
-                    attribute="audio",
-                    reason="The audio quality might be low. Please provide clearer audio.",
-                )
-
-            return JSONResponse(
-                status_code=HTTP_STATUS_CODE["OK"],
-                content={
-                    "status": "success",
-                    "code": HTTP_STATUS_CODE["OK"],
-                    "message": HTTP_STATUS_MESSAGE["OK"],
-                    "data": {"transcription": transcript},
-                },
+        if not response.results:
+            raise CustomException(
+                status_code=HTTP_STATUS_CODE["BAD_REQUEST"],
+                message=HTTP_STATUS_MESSAGE["BAD_REQUEST"],
+                attribute="audio",
+                reason="The audio quality might be low. Please provide clearer audio.",
             )
+
+        result = response.results[0].alternatives[0]
+
+        [transcript, confidence] = [result.transcript, result.confidence]
+
+        if confidence < STT_API_CONFIDENCE_THRESHOLD:
+            raise CustomException(
+                status_code=HTTP_STATUS_CODE["BAD_REQUEST"],
+                message=HTTP_STATUS_MESSAGE["BAD_REQUEST"],
+                attribute="audio",
+                reason="The audio quality might be low. Please provide clearer audio.",
+            )
+
+        return JSONResponse(
+            status_code=HTTP_STATUS_CODE["OK"],
+            content={
+                "status": "success",
+                "code": HTTP_STATUS_CODE["OK"],
+                "message": HTTP_STATUS_MESSAGE["OK"],
+                "data": {"transcription": transcript},
+            },
+        )
 
     except (CustomException, Exception) as exc:
         if isinstance(exc, CustomException):
