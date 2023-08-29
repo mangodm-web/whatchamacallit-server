@@ -3,7 +3,7 @@ MongoDB 관련 모듈
 """
 
 import logging
-from typing import Optional, Dict
+from typing import Optional, Dict, Any
 
 from pymongo import MongoClient
 from pymongo.errors import ServerSelectionTimeoutError, ConnectionFailure
@@ -60,5 +60,41 @@ def get_collection(
         return df
     except Exception:
         logging.error("An error occurred while fetching data from MongoDB")
+
+        return None
+
+
+def insert_document(
+    client: MongoClient, collection_name: str, document: Dict[str, Any]
+) -> Optional[str]:
+    """
+    MongoDB 컬렉션에 데이터(문서)를 추가한다.
+
+    Args:
+        client (MongoClient): 데이터베이스와의 소통에 사용할 클라이언트
+        collection_name (str): 문서를 추가할 컬렉션의 이름
+        document (Dict[str, Any]): 추가할 문서
+
+    Returns:
+        Optional[str]: 데이터 추가가 성공적으로 될 경우 추가된 문서의 ID, 실패한 경우는 None
+    """
+
+    if not client:
+        logging.warning("MongoDB client is None")
+        return None
+
+    try:
+        db = client[MONGODB_DB_NAME]
+        collection = db[collection_name]
+        insert_result = collection.insert_one(document)
+
+        if insert_result.acknowledged:
+            return str(insert_result.inserted_id)
+
+        logging.warning("Document insert not acknowledged")
+        return None
+
+    except Exception as e:
+        logging.error(f"An error occurred while inserting data into MongoDB: {e}")
 
         return None
