@@ -36,6 +36,7 @@ STT_API_CONFIDENCE_THRESHOLD = 0.5
 # HTTP 상태 코드
 HTTP_STATUS_CODE = {
     "OK": status.HTTP_200_OK,
+    "CREATED": status.HTTP_201_CREATED,
     "BAD_REQUEST": status.HTTP_400_BAD_REQUEST,
     "INTERNAL_SERVER_ERROR": status.HTTP_500_INTERNAL_SERVER_ERROR,
 }
@@ -43,6 +44,7 @@ HTTP_STATUS_CODE = {
 # HTTP 상태 메시지
 HTTP_STATUS_MESSAGE = {
     "OK": "OK",
+    "CREATED": "CREATED",
     "BAD_REQUEST": "Bad Request",
     "INTERNAL_SERVER_ERROR": "Internal Server Error",
 }
