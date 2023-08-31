@@ -12,5 +12,7 @@ dependencies:
   - black==23.7.0
   - python-dotenv==0.21.0
   - boto3==1.24.28
+  - pytest==7.4.0
   - pip:
     - google-cloud-speech==2.21.0
+    - coverage==7.2.7
