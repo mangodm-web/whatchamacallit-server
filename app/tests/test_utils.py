@@ -7,6 +7,7 @@ import pytest
 from app.api.utils import is_audio_content_valid
 
 
+# Arrange
 @pytest.mark.parametrize(
     "audio_content, expected",
     [
@@ -18,4 +19,5 @@ from app.api.utils import is_audio_content_valid
 def test_is_audio_content_valid(audio_content, expected):
     """is_audio_content_valid 함수에 대한 테스트"""
 
+    # Act, Assert
     assert is_audio_content_valid(audio_content) == expected
