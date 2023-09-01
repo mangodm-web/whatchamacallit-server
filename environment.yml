@@ -14,5 +14,7 @@ dependencies:
   - boto3==1.24.28
   - pytest==7.4.0
   - coverage==7.2.2
+  - chardet==4.0.0
+  - sentence-transformers==2.2.2
   - pip:
     - google-cloud-speech==2.21.0
